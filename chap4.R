@@ -211,7 +211,7 @@ print(fac)
 for(i in 1:6){
   cat(strrep("*", i), "\n")
 }
-
+ 
 #3
 i<-1
 num <- 0
