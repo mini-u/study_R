@@ -190,5 +190,5 @@ data.frame(
   Region = rownames(subset_data),
   Examination = subset_data$Examination,
   Agriculture = subset_data$Agriculture
-)
+) 
 
