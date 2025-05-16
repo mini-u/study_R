@@ -9,7 +9,6 @@ plot(wt, mpg,
      col='red',
      pch=19)
 
-
 vars <- c("mpg","disp", "drat", "wt")
 target <- mtcars[,vars]
 head(target)
@@ -110,7 +109,7 @@ pairs(myds[,-6], pch=point, col=color[point])
 cor(myds[,-6])
 
 
-##실전분석
+###실전분석
 tmp <- airquality[,1:4]
 tmp <- tmp[complete.cases(tmp),]
 head(tmp)
@@ -122,7 +121,7 @@ res <- lm(tmp$Temp~tmp$Ozone)
 abline(res, col='red')
 
 
-##연습문제
+###연습문제
 #01
 cor(cars$speed, cars$dist)
 plot(cars$speed, cars$dist)
