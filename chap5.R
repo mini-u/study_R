@@ -162,7 +162,7 @@ boxplot(ds.tree$Girth, main="나무 지름")
 hist(ds.tree$Height)
 boxplot(ds.tree$Height)
 
-#07
+#07 
 ds.orange <- Orange
 head(ds.orange)
 summary(ds.orange$age)
