@@ -185,7 +185,7 @@ lines(years,
      main = 'LakeHuron',
      col='skyblue')
 
-#16
+#16 
 str(USAccDeaths)
 months <- 1:12
 acc_1973 <- acc[1:12]
