@@ -1,5 +1,5 @@
 #chap6 다중변수 자료의 탐색
-
+#산점도
 wt <- mtcars$wt
 mpg <- mtcars$mpg
 
@@ -130,7 +130,7 @@ res <- lm(cars$dist~cars$speed)
 abline(res, col='red')
 #상관계수가 0.8로 강한 양의 상관관계임
 
-#02
+#02 
 cor(pressure$temperature, pressure$pressure)
 plot(pressure$temperature, pressure$pressure)
 res <- lm(pressure$pressure~pressure$temperature)
