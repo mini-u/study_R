@@ -209,3 +209,54 @@ AQ2
 
 #04
 #(1)
+ds <-data.frame(state.x77)
+ds[order(ds$Population, decreasing = F), ]
+#(2)
+ds[order(ds$Income, decreasing= T), ]
+#(3)
+colnames(ds)[1] <- "state"
+head(ds[order(ds$Illiteracy, decreasing = F), c("state", "Illiteracy")], 10)
+
+#05
+#(1)
+mt.gear <- split(mtcars, mtcars$gear)
+mt.gear
+#(2)
+mt.gear$'4'
+#(3)
+mt.gear.35 <- rbind(mt.gear[["3"]], mt.gear[["5"]])
+mt.gear.35
+#(4)
+subset(mtcars, mtcars$wt > 1.5 & mtcars$wt < 3.0)
+
+#06
+#(1)
+library(mlbench)
+data("Glass")
+myds <- Glass
+#(2)
+str(myds) #10번째 열은 팩터
+aggregate(myds[, -10], by=list(Type = myds$Type), FUN=mean)
+
+#07
+#(1)
+data("Ionosphere")
+myds <- Ionosphere
+str(myds)
+#(2)
+num_cols <- sapply(myds[,-35], is.numeric)
+aggregate(myds[ , num_cols], by = list(class = myds$Class, V1 = myds$V1), FUN = sd)
+
+#08
+set.seed(100)
+idx <- sample(1:nrow(mtcars), size=10, replace=F)
+mt10 <- mtcars[idx,]
+mt10
+mt.other <- mtcars[-idx,]
+mt.other
+
+#09
+set.seed(100)
+idx <- sample(1:nrow(iris), size=10, replace=F)
+iris.10 <- iris[idx,]
+iris.10
