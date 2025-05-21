@@ -256,7 +256,31 @@ mt.other <- mtcars[-idx,]
 mt.other
 
 #09
-set.seed(100)
+set.seed(100) 
 idx <- sample(1:nrow(iris), size=10, replace=F)
 iris.10 <- iris[idx,]
 iris.10
+
+#10
+set.seed(100)
+dim(cars)
+idx <- sample(1:nrow(cars), replace = F)
+ds <- cars[idx, ]
+ds
+
+#11
+x<- unique(iris$Species)
+combn(x, 2)
+
+#12
+x<- c("바나나", "사과", "메론", "복숭아", "망고")
+com <- combn(x, 3)
+for (i in 1:ncol(com)){
+  cat(com[,i], "\n")
+}
+
+#13
+ds <- data.frame(state.x77)
+colnames(ds)[1] <- "state"
+subset(ds[c("Population", "Income", "Area"), ], ds$Area > ds$Area['Alabama'] &
+         ds$Area < ds$Area['California'])
