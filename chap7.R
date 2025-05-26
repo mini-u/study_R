@@ -281,6 +281,9 @@ for (i in 1:ncol(com)){
 
 #13
 ds <- data.frame(state.x77)
-colnames(ds)[1] <- "state"
-subset(ds[c("Population", "Income", "Area"), ], ds$Area > ds$Area['Alabama'] &
-         ds$Area < ds$Area['California'])
+ds$state <- rownames(ds) 
+ds
+subset(ds, Area > ds["Alabama", "Area"] & Area < ds["California", "Area"],
+       select = c("Population", "Income", "Area"))
+
+#14
