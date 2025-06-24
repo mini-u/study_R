@@ -56,3 +56,107 @@ mosaicplot(tbl, color=T)
 # 2. ggplot 패키지
 
 #(2) 막대그래프
+library(ggplot2)
+
+month <- c(1,2,3,4,5,6)
+rain <- c(55, 50, 45, 50, 60, 70)
+df <- data.frame(month, rain)
+df
+
+ggplot(df, aes(x=month, y=rain))+ #그래프 그릴 데이터 지정
+  geom_bar(stat="identity", #막대 높이는 y축 값에 의해 결정
+           width=0.7, #막대 폭
+           fill ="steelblue") + #색
+  ggtitle("월별 강수량") + #제목
+  theme(plot.title = element_text(size=25, face="bold", colour = "steelblue")) + #제목스타일
+  labs(x="월", y="강수량")+ #축 제목 설정
+  coord_flip() #막대를 가로로
+
+#(3) 히스토그램
+ggplot(iris, aes(x=Petal.Length))+
+  geom_histogram(binwidth=1) #히스토그램에서 막대 간격 조정
+
+ggplot(iris, aes(x=Sepal.Width, fill=Species, color=Species))+ #히스토그램 대상열, 내부 색설정
+  geom_histogram(binwidth=0.5, position ="dodge")+
+  theme(legend.position = "top")
+
+#(4) 산점도
+ggplot(data=iris, aes(x=Petal.Length, y=Petal.Width))+
+  geom_point()
+
+ggplot(iris, aes(x=Petal.Length, y=Petal.Width, color = Species ))+
+  geom_point(size=2)+
+  ggtitle("꽃잎의 길이와 폭")+
+  theme(plot.title=element_text(size=25, face="bold"))
+
+#(5) 상자그림의 작성
+ggplot(iris, aes(y=Petal.Length))+ #상자 변수 그릴 때는 y에 작성
+  geom_boxplot(fill="yellow")
+
+ggplot(iris, aes(y=Petal.Length, fill=Species))+
+  geom_boxplot()
+
+#(6) 선 그래프 작성
+year <- 1937:1960
+cnt <- as.vector(airmiles)
+df <- data.frame(year, cnt)
+df
+
+ggplot(df, aes(x=year, y=cnt))+
+  geom_line(col="red")
+
+
+##3. 차원 축소
+install.packages("Rtsne")
+library(Rtsne)
+
+ds <- iris[,-5]
+
+dup = which(duplicated(ds))
+dup
+ds<- ds[-dup,]
+ds.y <- iris$Species[-dup]
+
+tsne <- Rtsne(ds, dims=2, perplexity=10)
+
+df.tsne <- data.frame(tsne$Y)
+head(df.tsne)
+ggplot(df.tsne, aes(x=X1, y=X2, color=ds.y))+
+  geom_point(size =2)
+
+install.packages(c("rgl","car"))
+library("rgl")
+library("car")
+library("mgcv") 
+
+tsne <- Rtsne(ds, dims=3, perplexity =10)
+df.tsne <- data.frame(tsne$Y) 
+head(df.tsne)
+
+scatter3d(x=df.tsne$X1, y=df.tsne$X2, z=df.tsne$X3)
+
+points <- as.integer(ds.y)
+color <- c('red', 'green', 'blue')
+scatter3d(x=df.tsne$X1, y=df.tsne$X2, z=df.tsne$X3,
+          point.col=color[points],
+          surface=FALSE)
+
+# 실전분석
+library(car)
+library(ggplot2)
+tmp <- SLID[complete.cases(SLID), ]
+tmp
+
+tmp$group <- 'Middle'
+tmp$group[tmp$education >=14] <- 'High'
+tmp$group[tmp$education < 10]<- 'Low'
+
+tmp$group <- factor(tmp$group, levels =c("High", "Middle", "Low"))
+
+ggplot(data=tmp, aes(y=wages, fill=group))+
+  geom_boxplot()
+
+
+#연습문제
+#01
+#(1)
