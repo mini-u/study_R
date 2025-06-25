@@ -159,4 +159,148 @@ ggplot(data=tmp, aes(y=wages, fill=group))+
 
 #연습문제
 #01
+us <- data.frame(state.x77, state.division)
+us
+us$index <- rownames(us)
+us
 #(1)
+library(treemap)
+treemap(us, index=c("state.division", "index"),
+        vSize="Population",
+        vColor="Income",
+        title="1-(1) 그래프")
+
+#(2)
+treemap(us, index=c("state.division", "index"),
+        vSize="HS.Grad",
+        vColor="Murder")
+
+#(3)
+symbols(us$Income, us$Illiteracy,
+        circle=us$Population,
+        bg="green")
+text(us$Income, us$Illiteracy,
+     rownames(us))
+
+#(4)
+symbols(us$Illiteracy, us$Murder,
+        circle=us$Area,
+        bg="green")
+text(us$Illiteracy, us$Murder,
+     rownames(us))
+
+
+
+#02
+ds <- data.frame(swiss)
+ds$index <- rownames(ds)
+ds
+#(1)
+ds$group <- "MID"
+ds$group[ds$Education >=13] <- "HIGH"
+ds$group[ds$Education <= 6] <- "LOW"
+
+treemap(ds, index=c("group", "index"),
+        vSize="Fertility",
+        vColor="Agriculture")
+
+#(2)
+treemap(ds, index="index",
+        vSize="Catholic", vColor = "Examination")
+
+
+#03
+symbols(ds$Fertility, ds$Agriculture,
+        circle=ds$Education,
+        bg="green")
+text(ds$Fertility, ds$Agriculture,
+     rownames(ds))
+
+#04
+ds_tree <- data.frame(trees)
+head(ds_tree)
+
+symbols(ds_tree$Girth, ds_tree$Height,
+        circle=ds_tree$Volume,
+        bg="blue")
+text(ds_tree$Girth, ds_tree$Height,
+     rownames(ds_tree))
+
+
+#05
+ds_color <- data.frame(HairEyeColor)
+head(ds_color)
+mosaicplot(~Hair+Eye, data=ds_color)
+
+#07
+library(ggplot2)
+cars <- data.frame(mtcars)
+head(cars)
+ggplot(cars, aes(x=carb)) +
+  geom_bar()+
+  labs(
+    x = "기화기의 수", 
+    y = "빈도",
+    title = "기화기의 수"
+  )
+
+
+#08
+ggplot(cars, aes(x=cyl))+
+  geom_bar(fill='green')
+
+
+#09
+ggplot(cars, aes(x=mpg))+
+  geom_histogram(binwidth = 5.0)
+
+
+#10
+ggplot(ds_tree, aes(x=Volume))+
+  geom_histogram(binwidth = 5.0, fill='steelblue')+
+  labs(x="나무부피", y="빈도", title="나무부피 히스토그램")
+
+
+#11
+ggplot(ds, aes(x=Examination, y=Agriculture, color=Fertility))+
+  geom_point()
+
+
+#12
+ggplot(cars, aes(y=mpg, fill=factor(gear)))+
+  geom_boxplot()
+
+
+#15
+library(Rtsne)
+ds <- data.frame(state.x77)
+head(ds)
+
+#2차원 산점도
+tsne <- Rtsne(ds, dims=2, perplexity=10)
+df.tsne <- data.frame(tsne$Y)
+head(df.tsne)
+ggplot(df.tsne, aes(x=X1, y=X2))+
+  geom_point()
+
+#3차원 산점도
+library("rgl")
+library("car")
+tsne <-Rtsne(ds, dims=3, perplexity=10)
+df.tsne <- data.frame(tsne$Y)
+head(df.tsne)
+scatter3d(x=df.tsne$X1, y=df.tsne$X2, z=df.tsne$X3)
+
+
+#16
+#2차원 산점도
+tsne <- Rtsne(ds, dims=2, perplexity=10)
+df.tsne <- data.frame(tsne$Y)
+ggplot(df.tsne, aes(x=X1, y=X2))+
+  geom_point()
+
+#3차원 산점도
+tsne <-Rtsne(ds, dims=3, perplexity=10)
+df.tsne <- data.frame(tsne$Y)
+head(df.tsne)
+scatter3d(x=df.tsne$X1, y=df.tsne$X2, z=df.tsne$X3)
