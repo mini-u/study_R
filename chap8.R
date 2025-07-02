@@ -1,4 +1,4 @@
-# 1. 데이터 시각화
+# 8. 데이터 시각화
 
 #(2) 트리맵
 install.packages('treemap')
