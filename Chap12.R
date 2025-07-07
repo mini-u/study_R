@@ -227,5 +227,3 @@ for (i in 1:k){
 # 결과 출력
 acc
 mean(acc)
-
-#
