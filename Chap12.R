@@ -227,3 +227,81 @@ for (i in 1:k){
 # 결과 출력
 acc
 mean(acc)
+
+
+#08
+library(mlbench)
+data("PimaIndiansDiabetes")
+head(PimaIndiansDiabetes)
+str(PimaIndiansDiabetes)
+
+# k-fold
+k <- 10
+folds <- cvFolds(nrow(PimaIndiansDiabetes), K=k)
+acc <- c()
+
+for (i in 1:k){
+  ts.idx <- which(folds$which==1)
+  
+  ds.tr <- PimaIndiansDiabetes[-ts.idx, 1:8]
+  ds.ts <- PimaIndiansDiabetes[ts.idx, 1:8]
+  cl.tr <- PimaIndiansDiabetes[-ts.idx, 9]
+  cl.ts <- PimaIndiansDiabetes[ts.idx, 9]
+  
+  pred <- knn(ds.tr, ds.ts, cl.tr, k=5)
+  acc[i] <- mean(pred == cl.ts)
+}
+
+#결과
+mean(acc)
+
+
+#09
+data("Vehicle")
+str(Vehicle)
+
+# k-folds
+k <- 10
+folds <- cvFolds(nrow(PimaIndiansDiabetes), K=k)
+acc <- c()
+
+for (i in 1:k){
+  ts.idx <- folds$which == 1
+  
+  ds.tr <- Vehicle[-ts.idx, 1:18]
+  ds.ts <- Vehicle[ts.idx, 1:18]
+  cl.tr <- Vehicle[-ts.idx, 19]
+  cl.ts <- Vehicle[ts.idx, 19]
+  
+  pred <- knn(ds.tr, ds.ts, cl.tr, k=3)
+  acc[i] <- mean(pred == cl.ts)
+}
+
+#결과
+mean(acc)
+
+
+#10
+data("Vowel")
+str(Vowel)
+sum(is.na(Vowel))
+
+#k-folds
+k <- 10
+folds <- cvFolds(nrow(Vowel), K=k)
+acc<- c()
+
+
+for (i in 1:k){
+  ts.idx <- folds$which == 1
+  
+  ds.tr <- Vowel[-ts.idx, 1:10]
+  ds.ts <- Vowel[ts.idx, 1:10]
+  cl.tr <- Vowel[-ts.idx, 11]
+  cl.ts <- Vowel[ts.idx, 11]
+  
+  pred <- knn(ds.tr, ds.ts, cl.tr, k=5)
+  acc[i] <- mean(pred == cl.ts)
+}
+
+mean(acc)
